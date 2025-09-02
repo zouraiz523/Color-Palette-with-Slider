@@ -1,0 +1,151 @@
+* {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      color: inherit;
+      font: inherit;
+    }
+
+    html, body, figure, div {
+      display: grid;
+    }
+
+    html {
+      min-height: 100%;
+    }
+
+    body {
+      --hl: 0;
+      --p: 50;
+      grid-template-rows: 1fr auto;
+      background: #22242a;
+      color: #7b849c;
+      font: clamp(.75em, 2.5vmin, 1.25em)/1.25 "Jura", "Trebuchet MS", sans-serif;
+    }
+
+    svg {
+      position: fixed;
+    }
+
+    figure, input[type='range'] {
+      --r: 5/3;
+      --w: min(100cqw - 3em - .5em, 1200px);
+      grid-area: 1/1;
+      place-self: center;
+    }
+
+    figure {
+      width: var(--w);
+      filter: url(#comp) drop-shadow(2px 2px 5px #000);
+    }
+
+    img {
+      width: 100%;
+      aspect-ratio: var(--r);
+      object-fit: cover;
+      object-position: 50% 41%;
+      mask: linear-gradient(90deg,
+        red calc(var(--p)*1%),
+        rgb(0 0 0/ .5) 0);
+    }
+
+    input[type='range'] {
+      appearance: none;
+      z-index: 1;
+      width: calc(var(--w) + 3em);
+      height: calc(var(--w)/(var(--r)));
+      opacity: calc(1 - .625*(1 - var(--hl)));
+      pointer-events: none;
+      background: none;
+    }
+
+    input[type='range']::-webkit-slider-thumb {
+      appearance: none;
+      width: 3em;
+      height: 3em;
+      border-radius: 50%;
+      border: 2px solid currentcolor;
+      background: repeating-conic-gradient(
+        from 60deg,
+        currentcolor 0% 60deg,
+        transparent 0% 50%
+      ) 0/42% space border-box;
+      cursor: ew-resize;
+      pointer-events: auto;
+    }
+
+    input[type='range']::-moz-range-thumb {
+      width: 3em;
+      height: 3em;
+      border-radius: 50%;
+      border: 2px solid currentcolor;
+      background: repeating-conic-gradient(
+        from 60deg,
+        currentcolor 0% 60deg,
+        transparent 0% 50%
+      ) 0/42% space border-box;
+      cursor: ew-resize;
+      pointer-events: auto;
+    }
+
+    [role='group'] {
+      grid-template-columns: auto 1fr;
+      grid-gap: .5rem .75em;
+      padding: .5em;
+      background: #1b1d22;
+    }
+
+    #lbl {
+      grid-area: 1/1/span 2;
+      rotate: .5turn;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      font-weight: 600;
+    }
+
+    code {
+      --prc: calc(var(--hl)*100%);
+      grid-column: 2;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      font-family: "Victor Mono", "Ubuntu Mono", Consolas, Monaco, monospace;
+    }
+
+    code:last-child::after {
+      display: inline-block;
+      padding-left: 1ch;
+      content: ' /* complementary */';
+    }
+
+    label, output {
+      color: color-mix(in srgb, var(--c, #f5886b) var(--prc), currentcolor);
+    }
+
+    input[type='color'] {
+      margin: 0 .25em;
+      border: solid 1px currentcolor;
+      width: 2em;
+      height: 2em;
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    input[type='color']::-webkit-color-swatch {
+      border: solid 1px currentcolor;
+      border-radius: 50%;
+    }
+
+    input[type='color']::-moz-color-swatch {
+      border: solid 1px currentcolor;
+      border-radius: 50%;
+    }
+
+    output {
+      --c: #f1c972;
+    }
+
+    output::after {
+      content: ';';
+    }

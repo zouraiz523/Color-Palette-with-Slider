@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Palette with Slider</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body style="--p: 50">
+  <!-- SVG filter -->
+  <svg width="0" height="0" aria-hidden="true">
+    <filter id="comp" color-interpolation-filters="sRGB" x="0" y="0" width="1" height="1">
+      <feComponentTransfer result="full">
+        <feFuncA type="discrete" tableValues="1"/>
+      </feComponentTransfer>
+      <feColorMatrix values="0 0 0 0 0 
+                             0 0 0 0 0 
+                             0 0 0 0 0 
+                             4 1 -6 0 0"/>
+      <feComponentTransfer result="leaf">
+        <feFuncA type="table" tableValues="0 0 0 1 1"/>
+      </feComponentTransfer>
+      <feFlood flood-color="var(--c0)" result="red"/>
+      <feBlend in="full" mode="luminosity"/>
+      <feComposite in2="leaf" operator="in" result="face"/>
+      <feFlood flood-color="white"/>
+      <feBlend in="red" mode="exclusion"/>
+      <feBlend in="full" mode="luminosity"/>
+      <feBlend in="face" result="comp"/>
+      <feComponentTransfer in="SourceGraphic">
+        <feFuncA type="discrete" tableValues="0 1 0"/>
+      </feComponentTransfer>
+      <feComposite in="comp" operator="in"/>
+      <feBlend in2="full"/>
+    </filter>
+  </svg>
+
+  <!-- Image -->
+  <figure>
+    <img src="https://images.unsplash.com/photo-1619528974596-ebf75db84d02?w=1200" alt="Sample Image">
+  </figure>
+
+  <!-- Slider -->
+  <input id="p" type="range" min="0" max="100" value="50">
+
+  <!-- Color pickers -->
+  <div role="group" aria-labelledby="lbl">
+    <div id="lbl">palette</div>
+    <code class="c">
+      <label for="c0">--c0:</label>
+      <input id="c0" type="color" value="#00cf00">
+      <output for="c0">#00cf00</output>
+    </code>
+    <code class="c">
+      <label for="c1">--c1:</label>
+      <input id="c1" type="color" value="#ff30ff">
+      <output for="c1">#ff30ff</output>
+    </code>
+  </div>
+
+  <script src="script.js"> </script>
+</body>
+</html>
